@@ -1,11 +1,19 @@
 const p1 = {
   x: 0,
-  y: 4
+  y: 4,
+  moverEnX: function (x) {
+    this.x += x
+  },
+  moverEnY: function (y) {
+    this.y += y
+  }
 }
 
 const p2 = {
   x: 3,
-  y: 0
+  y: 0,
+  moverEnX: function (x) { this.x += x},
+  moverEnY: function (y) { this.y += y}
 }
 
 function distancia (p1, p2) {
@@ -18,3 +26,9 @@ function distancia (p1, p2) {
 console.log(distancia(p1, p2))
 console.log(distancia(p1, { x: 20, y: -7 }))
 console.log(distancia(p1, { horizontal: 20, vertical: -7 }))
+
+p1.moverEnX(10)
+console.log(p1.x)
+
+p2.moverEnY(10)
+console.log(p2.y)
