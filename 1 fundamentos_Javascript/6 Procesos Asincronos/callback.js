@@ -41,12 +41,15 @@ function handleError(err){
 
 
 let luke
-get('http://swapi.co/api/people/1/')
-  .then((response) => {
-    luke = response
-    return get(luke.homeworld)
+fetch('http://swapi.co/api/people/1/')
+  .then(response => response.json())
+  .then((json) => {
+    luke = json
+    return fetch(luke.homeworld)
   })
-  .then((homeworld) => {
-    luke.homeworld = homeworld
+  .then(response => response.json())
+  .then((json) => {
+    luke.homeworld = json
+    console.log(`${luke.name} nació en ${luke.homeworld.name}`)
   })
   .catch(err => handleError(err))
