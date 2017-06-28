@@ -1,35 +1,52 @@
 
-function get(URL, callback){
-  const xhr = new XMLHttpRequest();
+// const promise = new Promise(function(resolve, reject){
+//   setTimeout(function() {
+//     reject(new Error('Se produjo un error'))
+//   },1000)
+// })
+//
+// promise
+//   .then(function (){
+//
+//   })
+//   .catch(function (err){
+//
+//   })
 
-  xhr.onreadystatechange = function () {
-    const DONE = 4
-    const OK = 200
-    if(this.readyState === DONE){
-      callback(null, JSON.parse(this.resonseText))
-    } else{
-      callback(new Error(`Se produjo un error al realizar el request: ${this.status}`))
+
+
+
+function get(URL){
+  return new Promise((revolse, reject) => {
+    const xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function () {
+      const DONE = 4
+      const OK = 200
+      if(this.readyState === DONE){
+        resolve(JSON.parse(this.resonseText))
+      } else{
+        reject(new Error(`Se produjo un error al realizar el request: ${this.status}`))
+      }
     }
-  }
 
-  xhr.open('GET', URL);
-  xhr.send(null);
+    xhr.open('GET', URL);
+    xhr.send(null);
+  })
 }
 
 function handleError(err){
   console.log(`Request failed: ${err}`)
 }
 
-get('http://swapi.co/api/people/1/', function onResponse(err, luke){
-  if(err) return handleError(err)
 
-  //SE OBTIENE EL PLANETA DEL OBJETO
-  get(luke.homeworld, function onHomeworldResponse(err, homeworld){
-    if(err) return handleError(err)
-
-    luke.homeworld = homeworld
-    console.log(`${luke.name} nació en ${luke.homeworld.name}`)
+let luke
+get('http://swapi.co/api/people/1/')
+  .then((response) => {
+    luke = response
+    return get(luke.homeworld)
   })
-  console.log(`Request succeded`)
-  console.log('luke',luke)
-})
+  .then((homeworld) => {
+    luke.homeworld = homeworld
+  })
+  .catch(err => handleError(err))
