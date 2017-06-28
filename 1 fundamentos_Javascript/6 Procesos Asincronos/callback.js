@@ -16,11 +16,19 @@ function get(URL, callback){
   xhr.send(null);
 }
 
+function handleError(err){
+  console.log(`Request failed: ${err}`)
+}
+
 get('http://swapi.co/api/people/1/', function onResponse(err, luke){
-  if(err) console.log(`Request failed: ${err}`)
+  if(err) return handleError(err)
 
+  //SE OBTIENE EL PLANETA DEL OBJETO
   get(luke.homeworld, function onHomeworldResponse(err, homeworld){
+    if(err) return handleError(err)
 
+    luke.homeworld = homeworld
+    console.log(`${luke.name} nació en ${luke.homeworld.name}`)
   })
   console.log(`Request succeded`)
   console.log('luke',luke)
