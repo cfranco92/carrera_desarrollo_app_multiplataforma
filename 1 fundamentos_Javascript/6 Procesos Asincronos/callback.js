@@ -15,7 +15,6 @@
 
 
 
-
 function get(URL){
   return new Promise((revolse, reject) => {
     const xhr = new XMLHttpRequest();
