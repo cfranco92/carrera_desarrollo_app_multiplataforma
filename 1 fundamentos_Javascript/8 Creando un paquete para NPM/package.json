@@ -1,0 +1,11 @@
+{
+  "name": "platzom",
+  "version": "0.1.0",
+  "description": "Traductor de idioma platzom",
+  "main": "index.js",
+  "scripts": {
+    
+  },
+  "author": "Cristian Franco <cfrancobedoya@gmail.com> (http://www.ramalapro.com)",
+  "license": "MIT"
+}
