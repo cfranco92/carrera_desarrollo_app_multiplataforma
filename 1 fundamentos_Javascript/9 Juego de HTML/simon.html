@@ -2,7 +2,9 @@
   <head>
     <title>Simon Dice</title>
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="sweetalert.css">
     <link rel="stylesheet" href="simon.css">
+    <meta charset="utf-8" />
   </head>
   <body>
     <div class="keyboard">
@@ -39,20 +41,28 @@
         <div class="key" data-key="77">m</div>
       </div>
     </div>
+    <script src="sweetalert.min.js"></script>
     <script>
       const niveles = 15
       let teclas = generarTeclas(niveles)
 
       function siguienteNivel(nivelActual) {
         if (nivelActual == niveles) {
-          return alert('Ganaste')
+          return swal({
+            title: 'Ganaste!',
+            type: 'success'
+          })
         }
 
-        alert(`Nivel ${nivelActual + 1}`)
+        swal({
+          timer: 1000,
+          title: `Nivel ${nivelActual + 1}`,
+          showConfirmButton: false
+        })
 
         for (let i = 0; i <= nivelActual; i++) {
           setTimeout(() => activate(teclas[i]), 
-            1000 * (i+1))
+            1000 * (i+1) + 1000)
         }
 
         let i = 0
@@ -71,7 +81,19 @@
           } else {
             activate(ev.keyCode, { fail: true })
             window.removeEventListener('keydown', onkeydown)
-            alert('Perdiste :(')
+            swal({
+              title: 'Perdiste',
+              text: '¿Quieres jugar de nuevo?',
+              showCancelButton: true,
+              confirmButtonText: 'Sí',
+              cancelButtonText: 'No',
+              closeOnConfirm: true
+            }, function (ok) {
+              if (ok) {
+                teclas = generarTeclas(niveles)
+                siguienteNivel(0)
+              }
+            })
           }
         }
       }
