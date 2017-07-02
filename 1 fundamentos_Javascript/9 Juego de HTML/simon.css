@@ -38,13 +38,14 @@ body {
   background-color: white;
   color: black;
 }
-
+/* CAMBIA DE COLOR SI ES CORRECTO */
 .key.active.success {
   background-color: #2ecc71;
   color: white;
   border-color: #2ecc71;
 }
 
+/* CAMBIA DE COLOR SI FALLA */
 .key.active.fail {
   background-color: #e74c3c;
   color: white;

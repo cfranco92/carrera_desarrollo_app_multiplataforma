@@ -19,28 +19,60 @@
         <div class="key">p</div>
       </div>
       <div class="row">
-        <div class="key">a</div>
+        <div class="key" data-key="65">a</div>
         <div class="key">s</div>
-        <div class="key">d</div>
-        <div class="key">f</div>
-        <div class="key">g</div>
-        <div class="key">h</div>
-        <div class="key">j</div>
-        <div class="key">k</div>
-        <div class="key">l</div>
+        <div class="key" data-key="68">d</div>
+        <div class="key" data-key="70">f</div>
+        <div class="key" data-key="71">g</div>
+        <div class="key" data-key="72">h</div>
+        <div class="key" data-key="74">j</div>
+        <div class="key" data-key="75">k</div>
+        <div class="key" data-key="76">l</div>
       </div>
       <div class="row last">
-        <div class="key">z</div>
-        <div class="key">x</div>
-        <div class="key">c</div>
-        <div class="key">v</div>
-        <div class="key">b</div>
-        <div class="key">n</div>
-        <div class="key">m</div>
+        <div class="key" data-key="90">z</div>
+        <div class="key" data-key="80">x</div>
+        <div class="key" data-key="67">c</div>
+        <div class="key" data-key="86">v</div>
+        <div class="key" data-key="66">b</div>
+        <div class="key" data-key="78">n</div>
+        <div class="key" data-key="77">m</div>
       </div>
     </div>
     <script>
-      // Aquí tu código
+      const niveles = 15
+      let keys = generarTeclas()
+
+      function generarTeclas(niveles){
+        //fill se utiliza para llenar el array y no dejar espacios nulos
+        return new Array(niveles).fill(0).map(generarTeclaAleatoria)
+      }
+
+      function generarTeclaAleatoria(){
+        const min = 65
+        conts max = 90
+        return Math.round(Math.random() * (max - min) + min)
+      }
+
+      function getElementByKeyCode(keyCode){
+        return document.querySelector(`[data-key="${keyCode}"]`)  // LLamamos un atributo de esta manera
+      }
+
+      function activate(KeyCode, opts = {}){
+        const el = getElementByKeyCode(KeyCode)
+        el.classList.add('activate')
+        if(opts.succes){
+          el.classList.add('succes')
+        } else if(opts.fail){
+          el.classList.add('fail')
+        }
+        setTimeout(() => deactivate (el),500)
+      }
+
+      function deactivate(el){
+        el.className = 'key'
+      }
+
     </script>
   </body>
 </html>
