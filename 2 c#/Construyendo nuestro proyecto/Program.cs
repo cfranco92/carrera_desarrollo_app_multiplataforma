@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 
 namespace Institucion
 {
@@ -19,20 +20,24 @@ namespace Institucion
                 Email= "cfrancobedoya@gmail.com"
             };
 
-            var persona1 = new Persona()
+            var profesor1 = new Profesor()
             {
 				Id = 2,
 				Nombre = "Sebastian",
 				Apellido = "Franco",
 				Edad = 28,
-				Teléfono = "2970450"				
+				Teléfono = "2970450",
+                Catedra = "Programación"
             };
 
-            persona1 = alumno1;
+            Persona a = profesor1;
+            Persona b = alumno1;
 
-            alumno1 = persona1;
+            a = b;
 
+            //Alumno al3 = a;   //No se puede asignar
 
+            Console.WriteLine(Persona.ContadorPersonas);
 
             Console.ReadLine();
         }

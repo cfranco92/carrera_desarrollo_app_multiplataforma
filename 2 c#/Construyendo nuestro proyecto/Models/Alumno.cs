@@ -2,10 +2,13 @@
 namespace Institucion
 {
     public class Alumno: Persona
-    {
-        public Alumno()
+    {        
+        public string Email { get; set; }  
+
+
+        public string ListaInasistencias()
         {
-            public string Email { get; set; }
+            return Inasistencias.ToString();
         }
     }
 }
